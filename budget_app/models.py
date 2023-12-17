@@ -12,16 +12,15 @@ class TransactionType(Enum):
     INCOME = 'Income'
 
 class User(db.Model, UserMixin):
-    __tablename__='user'
+    
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(20), unique=True, nullable=False)
+    username = db.Column(db.String(20), nullable=False, unique=True)
     password = db.Column(db.String(80), nullable=False)
 
 # Model transakcji
 class Transaction(db.Model):
-    __tablename__ = 'transaction'
+    
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
     amount = db.Column(db.Float, nullable=False)
     type = db.Column(db.Enum(TransactionType), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)

@@ -11,12 +11,12 @@ def register():
     form = RegisterForm()
 
     if form.validate_on_submit():
-         hashed_password = bcrypt.generate_password_hash(form.password.data)
-         new_user = User(username=form.username.data, password=hashed_password)
-         db.session.add(new_user)
-         db.session.commit()
-         flash('Konto utworzone!', 'success')
-         return redirect(url_for('users.login'))
+        hashed_password = bcrypt.generate_password_hash(form.password.data)
+        new_user = User(username=form.username.data, password=hashed_password)
+        db.session.add(new_user)
+        db.session.commit()
+        flash('Konto utworzone!', 'success')
+        return redirect(url_for('users.login'))
 
     return render_template('register.html', form=form)
 
@@ -43,11 +43,11 @@ def dashboard():
         print(f"Error retrieving transactions: {e}")
         return "An error occurred while retrieving transactions."
 
-@users.route('/logout')
+@users.route('/logout', methods=['GET', 'POST'])
 @login_required
 def logout():
      logout_user()
-     return redirect(url_for('main.index'))
+     return redirect(url_for('users.login'))
 
 # Podsumowanie finansowe
 @users.route('/summary', methods=['GET', 'POST'])

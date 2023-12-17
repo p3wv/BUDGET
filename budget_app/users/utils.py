@@ -1,10 +1,12 @@
 import csv
 import io
-from flask import app, Response
+from flask import app, Response, Blueprint
 from models import Transaction
 
+export = Blueprint('export', __name__)
+
 # Eksport danych
-@app.route('/export_transactions')
+@export.route('/export_transactions')
 def export_transactions():
     transactions = Transaction.query.all()
     si = io.StringIO()
